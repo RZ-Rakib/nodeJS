@@ -13,3 +13,4 @@ package-lock.json
 
 
 # Ignore build files (if any)
+.micropico/
