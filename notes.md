@@ -5,3 +5,5 @@
 4. http status codes, meaning and uses
 5. pool
 6. PostgreSQL's `INTEGER` type has a max value of 2,147,483,647.
+7. body-parser
+8. 
