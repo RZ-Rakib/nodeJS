@@ -34,7 +34,7 @@ router.delete("/movies/:id", async (req, res) => {
             return res.status(400).json({message: "Invalied movie id format"});
         }
 
-        const response = await Movie.deleteOne({_id: req.params.id});
+        const response = await Movie.deleteOne({_id: id});
 
         if (response.deletedCount === 0) {
         return res.status(404).json({message: "Movie not found"});

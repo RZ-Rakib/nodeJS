@@ -15,25 +15,18 @@ const mongoURL = process.env.MONGO_URI;
 const connectTodb = async () => {
   try {
     await mongoose.connect(mongoURL, {
-      dbName: 'cardb',
+      dbName: 'moviedb',
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
     console.log("Mongodb connected successfully.");
   } catch (err) {
-    console.error("MOngodb connection error", err);
+    console.error("Mongodb connection error", err);
     process.exit(1);
   }
 }
 connectTodb();
 
-mongoose.connection.on('error', (err) => {
-  console.error("MongoDB connectioin error",err);
-});
-
-mongoose.connection.once('open', () => {
-  console.log("MongoDB connection established");
-});
 
 // dotenv.config({path: './.env'});
 // const mongoURL = process.env.MONGO_URI;
