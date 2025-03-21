@@ -32,16 +32,15 @@ describe('/POST customer', () => {
                 res.body.should.have.property('email').eql(testCustomer.email);
                 res.body.should.have.property('phone').eql(testCustomer.phone);
 
-                // Now check if the customer was added to the database
+                // check if the customer was added to the database
                 query.getCustomerByEmail(testCustomer.email, (dbErr, customer) => {
                     if (dbErr) {
-                        return done(dbErr); // Ensure error in the database query is handled
+                        return done(dbErr);
                     }
                     if (!customer) {
                         return done(new Error('Customer not found in database'));
                     }
-
-                    // Assert that the customer returned from the database matches what was sent
+                    
                     customer.should.have.property('firstname').eql(testCustomer.firstname);
                     customer.should.have.property('lastname').eql(testCustomer.lastname);
                     customer.should.have.property('email').eql(testCustomer.email);
@@ -51,4 +50,17 @@ describe('/POST customer', () => {
                 });
             });
     });
+});
+
+describe('/GET customers', () => {
+  it('Fetch all customers', (done) => {
+    chai.request(app)
+      .get('/api/customers') 
+      .end((err, res) => {
+         res.should.have.status(200);
+         res.body.should.be.a('array');
+         res.body.length.should.be.eql(1);
+         done();
+      });
+  });
 });
