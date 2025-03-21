@@ -56,7 +56,7 @@ const addCustomer = (req, res) => {
             return res.status(500).json({error: "Internal server error"});
         }
 
-        res.status(201).json(result.rows[0]);
+        res.status(200).json(result.rows[0]);
     });
 };
 
@@ -110,6 +110,32 @@ const  updateCustomer = (req, res) => {
         res.status(200).json(result.rows[0]);
     });
 };
+//Delete all customers
+const deleteAllCustomers = () => {
+    db.query('DELETE FROM customers', (err, result) => {
+        if (err) {
+            return console.error('Error executing query', err.stack);
+        }
+    })
+};
+
+//
+const getCustomerByEmail = (email, callback) => {
+    const query = {
+        text: 'SELECT * FROM customers WHERE email = $1',
+        values: [email]
+    };
+
+    db.query(query, (err, result) => {
+        if (err) {
+            return callback(err, null);
+        }
+        if (result.rows.length === 0) {
+            return callback(null, null); // No customer found
+        }
+        callback(null, result.rows[0]); // Return the customer object
+    });
+};
 
 module.exports = {
     getAllCustomers,
@@ -117,4 +143,6 @@ module.exports = {
     addCustomer,
     deleteCustomer,
     updateCustomer,
+    deleteAllCustomers,
+    getCustomerByEmail
 };
