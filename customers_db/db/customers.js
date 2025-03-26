@@ -119,7 +119,7 @@ const deleteAllCustomers = () => {
     })
 };
 
-//
+// get 
 const getCustomerByEmail = (email, callback) => {
     const query = {
         text: 'SELECT * FROM customers WHERE email = $1',

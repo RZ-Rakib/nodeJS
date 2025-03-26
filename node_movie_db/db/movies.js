@@ -1,4 +1,4 @@
-const db = require('./dbconfig.js');
+const db = require('./dbconfig');
 
 // get all movies
 const getAllMovies = (req, res) => {
@@ -41,7 +41,7 @@ const addMovie = (req, res) => {
         if (err) {
             return console.error('Error executing query', err.stack)
         }
-        res.status(201).json(result.rows[0]);
+        res.status(200).json(result.rows[0]);
     })
 } 
 // Detete a movie by id
@@ -84,6 +84,14 @@ const updateMovie = (req, res) => {
 
         res.status(200).json(result.rows[0]);
     })
+};
+// Delete all movies
+const deleteAllMovies = () => {
+  db.query('DELETE FROM movies', (err, res) => {
+    if (err) {
+      return console.error('Error executing query', err.stack)
+    }
+  })
 }
 
  module.exports = {
@@ -92,4 +100,5 @@ const updateMovie = (req, res) => {
     addMovie: addMovie,
     deleteMovie: deleteMovie,
     updateMovie: updateMovie,
+    deleteAllMovies: deleteAllMovies
  }

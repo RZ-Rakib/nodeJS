@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const query = require('./db/customers.js');
+const query = require('./db/customers');
+const auth = require('./services/authenticate');
 
 const app = express();
 app.use(bodyParser.json()); // middleware body-parser
